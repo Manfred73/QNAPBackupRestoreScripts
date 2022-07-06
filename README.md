@@ -17,6 +17,7 @@ The following applications that I have running in docker are included:
 * sonarr
 * spotweb
 * tautulli
+* whisparr
 * homes directory of a specific user
 * homes directory of the root user
 

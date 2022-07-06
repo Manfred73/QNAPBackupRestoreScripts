@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "hydra2" "jackett" "lidarr" "organizr" "overseerr" "plex" "prowlarr" "radarr" "sabnzbd" "sonarr" "spotweb" "tautulli" "homes_<your_user_name>" "homes_root")
+APPS=("bazarr" "deluge" "hydra2" "jackett" "lidarr" "organizr" "overseerr" "plex" "prowlarr" "radarr" "sabnzbd" "sonarr" "spotweb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -172,13 +172,21 @@ TAUTULLI_PREFIX="tautulli"
 TAUTULLI_FILES_TO_BACKUP=("$TAUTULLI_PATH")
 TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP=("$TAUTULLI_PATH/backups" "$TAUTULLI_PATH/cache")
 
+# Variables for Whisparr backup & restore
+#
+WHISPARR_PATH="$CONFIG_LOCATION/whisparr"
+WHISPARR_BACKUP_PATH="$BACKUP_LOCATION/whisparr"
+WHISPARR_PREFIX="whisparr"
+WHISPARR_FILES_TO_BACKUP=("$WHISPARR_PATH")
+WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$WHISPARR_PATH/Backups" "$WHISPARR_PATH/MediaCover")
+
 # Variables for HOME_USER backup & restore
 #
-HOMES_PATH_<YOUR_USER_NAME>="$HOMES_LOCATION/<your_user_name>"
-HOMES_<YOUR_USER_NAME>_BACKUP_PATH="$BACKUP_LOCATION/homes/<your_user_name>"
-HOMES_<YOUR_USER_NAME>_PREFIX="<your_user_name>"
-HOMES_<YOUR_USER_NAME>_FILES_TO_BACKUP=("$HOMES_PATH_<YOUR_USER_NAME>")
-HOMES_<YOUR_USER_NAME>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+HOMES_PATH_<your_user_name>="$HOMES_LOCATION/<your_user_name>"
+HOMES_<your_user_name>_BACKUP_PATH="$BACKUP_LOCATION/homes/<your_user_name>"
+HOMES_<your_user_name>_PREFIX="<your_user_name>"
+HOMES_<your_user_name>_FILES_TO_BACKUP=("$HOMES_PATH_<your_user_name>")
+HOMES_<your_user_name>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
 # Variables for HOMES_ROOT backup & restore
 #
@@ -208,7 +216,8 @@ function get_backup_path() {
         "sonarr") echo "$SONARR_BACKUP_PATH" ;;
         "spotweb") echo "$SPOTWEB_BACKUP_PATH" ;;
         "tautulli") echo "$TAUTULLI_BACKUP_PATH" ;;
-        "homes_<your_user_name>") echo "$HOMES_<YOUR_USER_NAME>_BACKUP_PATH" ;;
+        "whisparr") echo "$WHISPARR_BACKUP_PATH" ;;
+        "homes_<your_user_name>") echo "$HOMES_<your_user_name>_BACKUP_PATH" ;;
         "homes_root") echo "$HOMES_ROOT_BACKUP_PATH" ;;
         *) exit 1 ;;
     esac
@@ -235,7 +244,8 @@ function get_app_prefix() {
         "sonarr") echo "$SONARR_PREFIX" ;;
         "spotweb") echo "$SPOTWEB_PREFIX" ;;
         "tautulli") echo "$TAUTULLI_PREFIX" ;;
-        "homes_<your_user_name>") echo "$HOMES_<YOUR_USER_NAME>_PREFIX" ;;
+        "whisparr") echo "$WHISPARR_PREFIX" ;;
+        "homes_<your_user_name>") echo "$HOMES_<your_user_name>_PREFIX" ;;
         "homes_root") echo "$HOMES_ROOT_PREFIX" ;;
         *) exit 1 ;;
     esac
@@ -261,8 +271,9 @@ function get_files_to_backup() {
         "sabnzbd") create_files_to_backup "${SABNZBD_FILES_TO_BACKUP[@]}" ;;
         "sonarr") create_files_to_backup "${SONARR_FILES_TO_BACKUP[@]}" ;;
         "spotweb") create_files_to_backup "${SPOTWEB_FILES_TO_BACKUP[@]}" ;;
-        "tautulli") create_files_to_backup "${TAUTULLI_FILES_TO_BACKUP[@]}" ;;
-        "homes_<your_user_name>") create_files_to_backup "${HOMES_<YOUR_USER_NAME>_FILES_TO_BACKUP[@]}" ;;
+        "tautulli") create_files_to_backup create_files_to_backup "${TAUTULLI_FILES_TO_BACKUP[@]}" ;;
+        "whisparr") create_files_to_backup create_files_to_backup "${WHISPARR_FILES_TO_BACKUP[@]}" ;;
+        "homes_<your_user_name>") create_files_to_backup "${HOMES_<your_user_name>_FILES_TO_BACKUP[@]}" ;;
         "homes_root") create_files_to_backup "${HOMES_ROOT_FILES_TO_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
@@ -289,7 +300,8 @@ function get_files_to_exclude_from_backup() {
         "sonarr") create_files_to_exclude_from_backup "${SONARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "spotweb") create_files_to_exclude_from_backup "${SPOTWEB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "tautulli") create_files_to_exclude_from_backup "${TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
-        "homes_<your_user_name>") create_files_to_exclude_from_backup "${HOMES_<YOUR_USER_NAME>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "whisparr") create_files_to_exclude_from_backup "${WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "homes_<your_user_name>") create_files_to_exclude_from_backup "${HOMES_<your_user_name>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_root") create_files_to_exclude_from_backup "${HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
