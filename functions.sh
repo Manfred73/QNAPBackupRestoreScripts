@@ -96,7 +96,7 @@ function get_filename_to_use_for_restore() {
         check_valid_app $1
         echo "No datetime arguments provided: using latest backup file for restore" >&2
         cd $BACKUP_PATH
-        local FILENAME_TO_USE_FOR_RESTORE=$BACKUP_PATH/$(ls -t | head -n1)
+        local FILENAME_TO_USE_FOR_RESTORE=$BACKUP_PATH/$(ls -p -t | egrep -v /$ | head -n1)
         cd $CURRENT_DIR
     elif [[ $# -eq 2 ]]; then
         check_valid_app $1
