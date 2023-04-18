@@ -129,7 +129,7 @@ function print_restore_usage() {
 ##########################################################################################################################################################
 function get_date_as_string() {
     echo "Check if provided date/time $1 string is valid" >&2
-    DATE_OF_BACKUP_FILE=$(gawk -v t=$1 'BEGIN {gsub(/../, "& ", t); sub(/ /,"",t); print mktime(t)}')
+    DATE_OF_BACKUP_FILE=$(awk -v t=$1 'BEGIN {gsub(/../, "& ", t); sub(/ /,"",t); print mktime(t)}')
     if [[ $DATE_OF_BACKUP_FILE -eq -1 ]]; then
         echo "ERROR: Invalid date/time string provided as input argument" >&2 && exit 1
     fi
