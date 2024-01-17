@@ -46,15 +46,15 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_manfred" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
 #
-CONFIG_LOCATION='/share/shares/docker'
-BACKUP_LOCATION="/share/shares/Backup/QNAP/share"
-SCRIPTS_LOCATION='/share/shares/homes/manfred/scripts'
-HOMES_LOCATION='/share/shares/homes'
+CONFIG_LOCATION='/share/docker'
+BACKUP_LOCATION="/share/Backup/QNAP/share"
+SCRIPTS_LOCATION='/share/homes/<your_user_name>/scripts'
+HOMES_LOCATION='/share/homes'
 HOMES_ROOT_LOCATION='/root'
 TMP_FILE_LIST='/tmp/filesToBackup.lst'
 TMP_FILE_LIST_TO_EXCLUDE='/tmp/filesToExcludeFromBackup.lst'
