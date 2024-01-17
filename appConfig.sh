@@ -51,10 +51,10 @@ APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "o
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
 #
-CONFIG_LOCATION='/share/docker'
-BACKUP_LOCATION="/share/Backup/QNAP/share"
-SCRIPTS_LOCATION='/share/homes/<your_user_name>/scripts'
-HOMES_LOCATION='/share/homes'
+CONFIG_LOCATION='/share/shares/docker'
+BACKUP_LOCATION="/share/shares/Backup/QNAP/share"
+SCRIPTS_LOCATION='/share/shares/homes/<your_user_name>/scripts'
+HOMES_LOCATION='/share/shares/homes'
 HOMES_ROOT_LOCATION='/root'
 TMP_FILE_LIST='/tmp/filesToBackup.lst'
 TMP_FILE_LIST_TO_EXCLUDE='/tmp/filesToExcludeFromBackup.lst'
@@ -214,11 +214,11 @@ WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$WHISPARR_PATH/Backups" "$WHISPARR_PATH/
 
 # Variables for HOME_USER backup & restore
 #
-HOMES_PATH_MANFRED="$HOMES_LOCATION/manfred"
-HOMES_MANFRED_BACKUP_PATH="$BACKUP_LOCATION/homes/manfred"
-HOMES_MANFRED_PREFIX="manfred"
-HOMES_MANFRED_FILES_TO_BACKUP=("$HOMES_PATH_MANFRED")
-HOMES_MANFRED_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+HOMES_PATH_<YOUR_USER>="$HOMES_LOCATION/<your_user>"
+HOMES_<YOUR_USER>_BACKUP_PATH="$BACKUP_LOCATION/homes/<your_user>"
+HOMES_<YOUR_USER>_PREFIX="<your_user>"
+HOMES_<YOUR_USER>_FILES_TO_BACKUP=("$HOMES_PATH_<YOUR_USER>")
+HOMES_<YOUR_USER>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
 # Variables for HOMES_ROOT backup & restore
 #
@@ -253,7 +253,7 @@ function get_backup_path() {
         "spotwebdb") echo "$SPOTWEBDB_BACKUP_PATH" ;;
         "tautulli") echo "$TAUTULLI_BACKUP_PATH" ;;
         "whisparr") echo "$WHISPARR_BACKUP_PATH" ;;
-        "homes_manfred") echo "$HOMES_MANFRED_BACKUP_PATH" ;;
+        "homes_<your_user>") echo "$HOMES_<YOUR_USER>_BACKUP_PATH" ;;
         "homes_root") echo "$HOMES_ROOT_BACKUP_PATH" ;;
         *) exit 1 ;;
     esac
@@ -285,7 +285,7 @@ function get_app_prefix() {
         "spotwebdb") echo "$SPOTWEBDB_PREFIX" ;;
         "tautulli") echo "$TAUTULLI_PREFIX" ;;
         "whisparr") echo "$WHISPARR_PREFIX" ;;
-        "homes_manfred") echo "$HOMES_MANFRED_PREFIX" ;;
+        "homes_<your_user>") echo "$HOMES_<YOUR_USER>_PREFIX" ;;
         "homes_root") echo "$HOMES_ROOT_PREFIX" ;;
         *) exit 1 ;;
     esac
@@ -317,7 +317,7 @@ function get_files_to_backup() {
         "spotwebdb") create_files_to_backup "${SPOTWEBDB_FILES_TO_BACKUP[@]}" ;;
         "tautulli") create_files_to_backup create_files_to_backup "${TAUTULLI_FILES_TO_BACKUP[@]}" ;;
         "whisparr") create_files_to_backup create_files_to_backup "${WHISPARR_FILES_TO_BACKUP[@]}" ;;
-        "homes_manfred") create_files_to_backup "${HOMES_MANFRED_FILES_TO_BACKUP[@]}" ;;
+        "homes_<your_user>") create_files_to_backup "${HOMES_<YOUR_USER>_FILES_TO_BACKUP[@]}" ;;
         "homes_root") create_files_to_backup "${HOMES_ROOT_FILES_TO_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
@@ -349,7 +349,7 @@ function get_files_to_exclude_from_backup() {
         "spotwebdb") create_files_to_exclude_from_backup "${SPOTWEBDB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "tautulli") create_files_to_exclude_from_backup "${TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "whisparr") create_files_to_exclude_from_backup "${WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
-        "homes_manfred") create_files_to_exclude_from_backup "${HOMES_MANFRED_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "homes_<your_user>") create_files_to_exclude_from_backup "${HOMES_<YOUR_USER>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_root") create_files_to_exclude_from_backup "${HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
