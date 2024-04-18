@@ -21,7 +21,7 @@
 #    LIDARR_FILES_TO_BACKUP=("$LIDARR_PATH/lidarr.db" "$LIDARR_PATH/logs.db" "$LIDARR_PATH/config.xml")
 #
 # or you can use the base config path for the application like:
-#    RADARR_FILES_TO_BACKUP=("$RADARRR_PATH")
+#    RADARR_FILES_TO_BACKUP=("$RADARR_PATH")
 #
 # and then add files or directories for exclusion like:
 #    RADARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR_PATH/MediaCover" "$RADARR_PATH/Backups")
@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "lms" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -115,6 +115,14 @@ LIDARR_BACKUP_PATH="$BACKUP_LOCATION/docker/lidarr"
 LIDARR_PREFIX="lidarr"
 LIDARR_FILES_TO_BACKUP=("$LIDARR_PATH")
 LIDARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$LIDARR_PATH/Backups" "$LIDARR_PATH/MediaCover")
+
+# Variables for LMS (Logitech Media Server) backup & restore
+#
+LMS_PATH="$CONFIG_LOCATION/lms"
+LMS_BACKUP_PATH="$BACKUP_LOCATION/docker/lms"
+LMS_PREFIX="lms"
+LMS_FILES_TO_BACKUP=("$LMS_PATH")
+LMS_FILES_TO_EXCLUDE_FROM_BACKUP=("$LMS_PATH/cache" "$LMS_PATH/logs")
 
 # Variables for Organizr backup & restore
 #
@@ -240,7 +248,8 @@ function get_backup_path() {
         "homeassistant") echo "$HOMEASSISTANT_BACKUP_PATH" ;;
         "hydra2") echo "$HYDRA2_BACKUP_PATH" ;;
         "jackett") echo "$JACKETT_BACKUP_PATH" ;;
-        "lidarr") echo "$LIDARR_BACKUP_PATH" ;;
+        "lidarr") echo "$LIDARR_BACKUP_PATHTH" ;;
+        "lms") echo "$LMS_BACKUP_PATH" ;;
         "organizr") echo "$ORGANIZR_BACKUP_PATH" ;;
         "overseerr") echo "$OVERSEERR_BACKUP_PATH" ;;
         "plex") echo "$PLEX_BACKUP_PATH" ;;
@@ -273,6 +282,7 @@ function get_app_prefix() {
         "hydra2") echo "$HYDRA2_PREFIX" ;;
         "jackett") echo "$JACKETT_PREFIX" ;;
         "lidarr") echo "$LIDARR_PREFIX" ;;
+        "lms") echo "$LMS_PREFIX" ;;
         "organizr") echo "$ORGANIZR_PREFIX" ;;
         "overseerr") echo "$OVERSEERR_PREFIX" ;;
         "plex") echo "$PLEX_PREFIX" ;;
@@ -305,6 +315,7 @@ function get_files_to_backup() {
         "hydra2") create_files_to_backup "${HYDRA2_FILES_TO_BACKUP[@]}" ;;
         "jackett") create_files_to_backup "${JACKETT_FILES_TO_BACKUP[@]}" ;;
         "lidarr") create_files_to_backup "${LIDARR_FILES_TO_BACKUP[@]}" ;;
+        "lms") create_files_to_backup "${LMS_FILES_TO_BACKUP[@]}" ;;
         "organizr") create_files_to_backup "${ORGANIZR_FILES_TO_BACKUP[@]}" ;;
         "overseerr") create_files_to_backup "${OVERSEERR_FILES_TO_BACKUP[@]}" ;;
         "plex") create_files_to_backup "${PLEX_FILES_TO_BACKUP[@]}" ;;
@@ -337,6 +348,7 @@ function get_files_to_exclude_from_backup() {
         "hydra2") create_files_to_exclude_from_backup "${HYDRA2_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "jackett") create_files_to_exclude_from_backup "${JACKETT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "lidarr") create_files_to_exclude_from_backup "${LIDARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "lms") create_files_to_exclude_from_backup "${LMS_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "organizr") create_files_to_exclude_from_backup "${ORGANIZR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "overseerr") create_files_to_exclude_from_backup "${OVERSEERR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "plex") create_files_to_exclude_from_backup "${PLEX_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;

@@ -8,6 +8,7 @@ The following applications that I have running in docker are included:
 * hydra2
 * jackett
 * lidarr
+* lms (Logitech Media Server)
 * organizr
 * overseerr
 * plex
