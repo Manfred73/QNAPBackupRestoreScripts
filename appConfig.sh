@@ -30,7 +30,7 @@
 # neccessarily have to be backed up (they can be restored/redownloaded by doing an update all from
 # within the applications.
 #
-# Also the Backups direcotry for various applications are stored
+# Also the Backups directory for various applications are stored
 # in the base config folders which you might want to exclude from this backup.
 #
 # Note: always make sure you use the absolute paths for the *_FILES_TO_BACKUP and 
@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "lms" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "lms" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -169,8 +169,16 @@ RADARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR_PATH/Backups" "$RADARR_PATH/MediaC
 RADARR3D_PATH="$CONFIG_LOCATION/radarr3D"
 RADARR3D_BACKUP_PATH="$BACKUP_LOCATION/docker/radarr3D"
 RADARR3D_PREFIX="radarr3D"
-RADARR3D_FILES_TO_BACKUP=("$RADARR_PATH")
-RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR_PATH/Backups" "$RADARR_PATH/MediaCover")
+RADARR3D_FILES_TO_BACKUP=("$RADARR3D_PATH")
+RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR3D_PATH/Backups" "$RADARR3D_PATH/MediaCover")
+
+# Variables for Readarr backup & restore
+#
+READARR_PATH="$CONFIG_LOCATION/readarr"
+READARR_BACKUP_PATH="$BACKUP_LOCATION/docker/readarr"
+READARR_PREFIX="readarr"
+READARR_FILES_TO_BACKUP=("$READARR_PATH")
+READARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$READARR_PATH/Backups")
 
 # Variables for Sabnzb backup & restore
 #
@@ -257,6 +265,7 @@ function get_backup_path() {
         "radarr") echo "$RADARR_BACKUP_PATH" ;;
         "radarr3D") echo "$RADARR3D_BACKUP_PATH" ;;
         "sabnzbd") echo "$SABNZBD_BACKUP_PATH" ;;
+        "readarr") echo "$READARR_BACKUP_PATH" ;;
         "sonarr") echo "$SONARR_BACKUP_PATH" ;;
         "spotweb") echo "$SPOTWEB_BACKUP_PATH" ;;
         "spotwebdb") echo "$SPOTWEBDB_BACKUP_PATH" ;;
@@ -289,6 +298,7 @@ function get_app_prefix() {
         "prowlarr") echo "$PROWLARR_PREFIX" ;;
         "radarr") echo "$RADARR_PREFIX" ;;
         "radarr3D") echo "$RADARR3D_PREFIX" ;;
+        "readarr") echo "$READARR_PREFIX" ;;
         "sabnzbd") echo "$SABNZBD_PREFIX" ;;
         "sonarr") echo "$SONARR_PREFIX" ;;
         "spotweb") echo "$SPOTWEB_PREFIX" ;;
@@ -322,6 +332,7 @@ function get_files_to_backup() {
         "prowlarr") create_files_to_backup "${PROWLARR_FILES_TO_BACKUP[@]}" ;;
         "radarr") create_files_to_backup "${RADARR_FILES_TO_BACKUP[@]}" ;;
         "radarr3D") create_files_to_backup "${RADARR3D_FILES_TO_BACKUP[@]}" ;;
+        "readarr") create_files_to_backup "${READARR_FILES_TO_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_backup "${SABNZBD_FILES_TO_BACKUP[@]}" ;;
         "sonarr") create_files_to_backup "${SONARR_FILES_TO_BACKUP[@]}" ;;
         "spotweb") create_files_to_backup "${SPOTWEB_FILES_TO_BACKUP[@]}" ;;
