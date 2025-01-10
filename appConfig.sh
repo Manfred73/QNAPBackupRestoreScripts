@@ -46,14 +46,14 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "lidarr" "lms" "organizr" "overseerr" "plex" "prowlarr" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "whisparr" "homes_<your_user_name>" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_<user>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
 #
 CONFIG_LOCATION='/share/shares/docker'
 BACKUP_LOCATION="/share/shares/Backup/QNAP/share"
-SCRIPTS_LOCATION='/share/shares/homes/<your_user_name>/scripts'
+SCRIPTS_LOCATION='/share/shares/homes/<user>/scripts'
 HOMES_LOCATION='/share/shares/homes'
 HOMES_ROOT_LOCATION='/root'
 TMP_FILE_LIST='/tmp/filesToBackup.lst'
@@ -108,6 +108,14 @@ JACKETT_PREFIX="jackett"
 JACKETT_FILES_TO_BACKUP=("$JACKETT_PATH")
 JACKETT_FILES_TO_EXCLUDE_FROM_BACKUP=("$JACKETT_PATH/downloads")
 
+# Variables for Kavita backup & restore
+#
+KAVITA_PATH="$CONFIG_LOCATION/kavita"
+KAVITA_BACKUP_PATH="$BACKUP_LOCATION/docker/kavita"
+KAVITA_PREFIX="kavita"
+KAVITA_FILES_TO_BACKUP=("$KAVITA_PATH")
+KAVITA_FILES_TO_EXCLUDE_FROM_BACKUP=("$KAVITA_PATH/Backups" "$KAVITA_PATH/cache" "$KAVITA_PATH/cache" "$KAVITA_PATH/covers" "$KAVITA_PATH/temp")
+
 # Variables for Lidarr backup & restore
 #
 LIDARR_PATH="$CONFIG_LOCATION/lidarr"
@@ -139,6 +147,14 @@ OVERSEERR_BACKUP_PATH="$BACKUP_LOCATION/docker/overseerr"
 OVERSEERR_PREFIX="overseerr"
 OVERSEERR_FILES_TO_BACKUP=("$OVERSEERR_PATH")
 OVERSEERR_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+
+# Variables for Petio backup & restore
+#
+PETIO_PATH="$CONFIG_LOCATION/petio"
+PETIO_BACKUP_PATH="$BACKUP_LOCATION/docker/petio"
+PETIO_PREFIX="petio"
+PETIO_FILES_TO_BACKUP=("$PETIO_PATH")
+PETIO_FILES_TO_EXCLUDE_FROM_BACKUP=("$PETIO_PATH/logs")
 
 # Variables for Plex backup & restore
 #
@@ -220,6 +236,22 @@ TAUTULLI_PREFIX="tautulli"
 TAUTULLI_FILES_TO_BACKUP=("$TAUTULLI_PATH")
 TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP=("$TAUTULLI_PATH/backups" "$TAUTULLI_PATH/cache")
 
+# Variables for Tautulli backup & restore
+#
+TDARR_PATH="$CONFIG_LOCATION/tdarr"
+TDARR_BACKUP_PATH="$BACKUP_LOCATION/docker/tdarr"
+TDARR_PREFIX="tdarr"
+TDARR_FILES_TO_BACKUP=("$TDARR_PATH")
+TDARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$TDARR_PATH/server/pgid" "$TDARR_PATH/server/puid" "$TDARR_PATH/server/Tdarr/Backups" "$TDARR_PATH/server/Tdarr/Logs" "$TDARR_PATH/server/Tdarr/Samples" "$TDARR_PATH/logs" "$TDARR_PATH/transcode_cache")
+
+# Variables for Whisparr backup & restore
+#
+UPTIME_KUMA_PATH="$CONFIG_LOCATION/uptime-kuma"
+UPTIME_KUMA_BACKUP_PATH="$BACKUP_LOCATION/docker/uptime-kuma"
+UPTIME_KUMA_PREFIX="uptime-kuma"
+UPTIME_KUMA_FILES_TO_BACKUP=("$UPTIME_KUMA_PATH")
+UPTIME_KUMA_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+
 # Variables for Whisparr backup & restore
 #
 WHISPARR_PATH="$CONFIG_LOCATION/whisparr"
@@ -230,11 +262,11 @@ WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$WHISPARR_PATH/Backups" "$WHISPARR_PATH/
 
 # Variables for HOME_USER backup & restore
 #
-HOMES_PATH_<YOUR_USER>="$HOMES_LOCATION/<your_user>"
-HOMES_<YOUR_USER>_BACKUP_PATH="$BACKUP_LOCATION/homes/<your_user>"
-HOMES_<YOUR_USER>_PREFIX="<your_user>"
-HOMES_<YOUR_USER>_FILES_TO_BACKUP=("$HOMES_PATH_<YOUR_USER>")
-HOMES_<YOUR_USER>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+HOMES_PATH_<USERNAME>="$HOMES_LOCATION/<user>"
+HOMES_<USERNAME>_BACKUP_PATH="$BACKUP_LOCATION/homes/<user>"
+HOMES_<USERNAME>_PREFIX="<user>"
+HOMES_<USERNAME>_FILES_TO_BACKUP=("$HOMES_PATH_<USERNAME>")
+HOMES_<USERNAME>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
 # Variables for HOMES_ROOT backup & restore
 #
@@ -256,22 +288,26 @@ function get_backup_path() {
         "homeassistant") echo "$HOMEASSISTANT_BACKUP_PATH" ;;
         "hydra2") echo "$HYDRA2_BACKUP_PATH" ;;
         "jackett") echo "$JACKETT_BACKUP_PATH" ;;
-        "lidarr") echo "$LIDARR_BACKUP_PATHTH" ;;
+        "kavita") echo "$KAVITA_BACKUP_PATH" ;;
+        "lidarr") echo "$LIDARR_BACKUP_PATH" ;;
         "lms") echo "$LMS_BACKUP_PATH" ;;
         "organizr") echo "$ORGANIZR_BACKUP_PATH" ;;
         "overseerr") echo "$OVERSEERR_BACKUP_PATH" ;;
+        "petio") echo "$PETIO_BACKUP_PATH" ;;
         "plex") echo "$PLEX_BACKUP_PATH" ;;
         "prowlarr") echo "$PROWLARR_BACKUP_PATH" ;;
         "radarr") echo "$RADARR_BACKUP_PATH" ;;
         "radarr3D") echo "$RADARR3D_BACKUP_PATH" ;;
-        "sabnzbd") echo "$SABNZBD_BACKUP_PATH" ;;
         "readarr") echo "$READARR_BACKUP_PATH" ;;
+        "sabnzbd") echo "$SABNZBD_BACKUP_PATH" ;;
         "sonarr") echo "$SONARR_BACKUP_PATH" ;;
         "spotweb") echo "$SPOTWEB_BACKUP_PATH" ;;
         "spotwebdb") echo "$SPOTWEBDB_BACKUP_PATH" ;;
+        "tdarr") echo "$TDARR_BACKUP_PATH" ;;
         "tautulli") echo "$TAUTULLI_BACKUP_PATH" ;;
+        "uptime_kuma") echo "$UPTIME_KUMA_BACKUP_PATH" ;;
         "whisparr") echo "$WHISPARR_BACKUP_PATH" ;;
-        "homes_<your_user>") echo "$HOMES_<YOUR_USER>_BACKUP_PATH" ;;
+        "homes_<user>") echo "$HOMES_<USERNAME>_BACKUP_PATH" ;;
         "homes_root") echo "$HOMES_ROOT_BACKUP_PATH" ;;
         *) exit 1 ;;
     esac
@@ -290,10 +326,12 @@ function get_app_prefix() {
         "homeassistant") echo "$HOMEASSISTANT_PREFIX" ;;
         "hydra2") echo "$HYDRA2_PREFIX" ;;
         "jackett") echo "$JACKETT_PREFIX" ;;
+        "kavita") echo "$KAVITA_PREFIX" ;;
         "lidarr") echo "$LIDARR_PREFIX" ;;
         "lms") echo "$LMS_PREFIX" ;;
         "organizr") echo "$ORGANIZR_PREFIX" ;;
         "overseerr") echo "$OVERSEERR_PREFIX" ;;
+        "petio") echo "$PETIO_PREFIX" ;;
         "plex") echo "$PLEX_PREFIX" ;;
         "prowlarr") echo "$PROWLARR_PREFIX" ;;
         "radarr") echo "$RADARR_PREFIX" ;;
@@ -303,9 +341,11 @@ function get_app_prefix() {
         "sonarr") echo "$SONARR_PREFIX" ;;
         "spotweb") echo "$SPOTWEB_PREFIX" ;;
         "spotwebdb") echo "$SPOTWEBDB_PREFIX" ;;
+        "tdarr") echo "$TDARR_PREFIX" ;;
         "tautulli") echo "$TAUTULLI_PREFIX" ;;
+        "uptime_kuma") echo "$UPTIME_KUMA_PREFIX" ;;
         "whisparr") echo "$WHISPARR_PREFIX" ;;
-        "homes_<your_user>") echo "$HOMES_<YOUR_USER>_PREFIX" ;;
+        "homes_<user>") echo "$HOMES_<USERNAME>_PREFIX" ;;
         "homes_root") echo "$HOMES_ROOT_PREFIX" ;;
         *) exit 1 ;;
     esac
@@ -324,10 +364,12 @@ function get_files_to_backup() {
         "homeassistant") create_files_to_backup "${HOMEASSISTANT_FILES_TO_BACKUP[@]}" ;;
         "hydra2") create_files_to_backup "${HYDRA2_FILES_TO_BACKUP[@]}" ;;
         "jackett") create_files_to_backup "${JACKETT_FILES_TO_BACKUP[@]}" ;;
+        "kavita") create_files_to_backup "${KAVITA_FILES_TO_BACKUP[@]}" ;;
         "lidarr") create_files_to_backup "${LIDARR_FILES_TO_BACKUP[@]}" ;;
         "lms") create_files_to_backup "${LMS_FILES_TO_BACKUP[@]}" ;;
         "organizr") create_files_to_backup "${ORGANIZR_FILES_TO_BACKUP[@]}" ;;
         "overseerr") create_files_to_backup "${OVERSEERR_FILES_TO_BACKUP[@]}" ;;
+        "petio") create_files_to_backup "${PETIO_FILES_TO_BACKUP[@]}" ;;
         "plex") create_files_to_backup "${PLEX_FILES_TO_BACKUP[@]}" ;;
         "prowlarr") create_files_to_backup "${PROWLARR_FILES_TO_BACKUP[@]}" ;;
         "radarr") create_files_to_backup "${RADARR_FILES_TO_BACKUP[@]}" ;;
@@ -337,9 +379,11 @@ function get_files_to_backup() {
         "sonarr") create_files_to_backup "${SONARR_FILES_TO_BACKUP[@]}" ;;
         "spotweb") create_files_to_backup "${SPOTWEB_FILES_TO_BACKUP[@]}" ;;
         "spotwebdb") create_files_to_backup "${SPOTWEBDB_FILES_TO_BACKUP[@]}" ;;
+        "tdarr") create_files_to_backup create_files_to_backup "${TDARR_FILES_TO_BACKUP[@]}" ;;
         "tautulli") create_files_to_backup create_files_to_backup "${TAUTULLI_FILES_TO_BACKUP[@]}" ;;
+        "uptime_kuma") create_files_to_backup create_files_to_backup "${UPTIME_KUMA_FILES_TO_BACKUP[@]}" ;;
         "whisparr") create_files_to_backup create_files_to_backup "${WHISPARR_FILES_TO_BACKUP[@]}" ;;
-        "homes_<your_user>") create_files_to_backup "${HOMES_<YOUR_USER>_FILES_TO_BACKUP[@]}" ;;
+        "homes_<user>") create_files_to_backup "${HOMES_<USERNAME>_FILES_TO_BACKUP[@]}" ;;
         "homes_root") create_files_to_backup "${HOMES_ROOT_FILES_TO_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
@@ -358,21 +402,26 @@ function get_files_to_exclude_from_backup() {
         "homeassistant") create_files_to_exclude_from_backup "${HOMEASSISTANT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "hydra2") create_files_to_exclude_from_backup "${HYDRA2_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "jackett") create_files_to_exclude_from_backup "${JACKETT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "kavita") create_files_to_exclude_from_backup "${KAVITA_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "lidarr") create_files_to_exclude_from_backup "${LIDARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "lms") create_files_to_exclude_from_backup "${LMS_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "organizr") create_files_to_exclude_from_backup "${ORGANIZR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "overseerr") create_files_to_exclude_from_backup "${OVERSEERR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "petio") create_files_to_exclude_from_backup "${PETIO_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "plex") create_files_to_exclude_from_backup "${PLEX_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "prowlarr") create_files_to_exclude_from_backup "${PROWLARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "radarr") create_files_to_exclude_from_backup "${RADARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "radarr3D") create_files_to_exclude_from_backup "${RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "readarr") create_files_to_exclude_from_backup "${READARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_exclude_from_backup "${SABNZBD_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "sonarr") create_files_to_exclude_from_backup "${SONARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "spotweb") create_files_to_exclude_from_backup "${SPOTWEB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "spotwebdb") create_files_to_exclude_from_backup "${SPOTWEBDB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "tdarr") create_files_to_exclude_from_backup "${TDARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "tautulli") create_files_to_exclude_from_backup "${TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "uptime_kuma") create_files_to_exclude_from_backup "${UPTIME_KUMA_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "whisparr") create_files_to_exclude_from_backup "${WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
-        "homes_<your_user>") create_files_to_exclude_from_backup "${HOMES_<YOUR_USER>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "homes_<user>") create_files_to_exclude_from_backup "${HOMES_<USERNAME>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_root") create_files_to_exclude_from_backup "${HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac

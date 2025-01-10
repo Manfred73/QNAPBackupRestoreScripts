@@ -5,19 +5,28 @@ The following applications that I have running in docker are included:
 
 * bazarr
 * deluge
+* gluetun
+* homeassistant
 * hydra2
 * jackett
+* kavita
 * lidarr
-* lms (Logitech Media Server)
+* lms (Lyrion Media Server)
 * organizr
 * overseerr
+* petio
 * plex
 * prowlarr
 * radarr
+* radarr3D
+* readarr
 * sabnzbd
 * sonarr
 * spotweb
+* spotwebdb
 * tautulli
+* tdarr
+* uptime-kuma
 * whisparr
 * homes directory of a specific user
 * homes directory of the root user
@@ -68,5 +77,6 @@ This script contains all the main logic used by the backup and restore scripts a
 * Recursively change the owner of the `backup_and_restore` directory and files: `chown -R <your_user_name>:users backup_and_restore`.
 * Recursively change permissions of the `backup_and_restore` directory and files to 0755: `chmod -R 755 backup_and_restore`.
 * In `appConfig.sh` change the following:
-  * <your_user_name> with the name of your own homes folder
-  * <YOUR_USER_NAME> with the name of your own homes folder (in capitals)
+  * <user> with the name of your own homes folder (user)
+  * <USERNAME> with the name of your own homes folder (user in capitals)
+* When uploaded from Windows, make sure the files have the proper line endings. If not, this will lead to unexpected errors. The files can be converted using the `dos2unix *.*` command.
