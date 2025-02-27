@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_<user>" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_<user>" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -172,6 +172,14 @@ PROWLARR_PREFIX="prowlarr"
 PROWLARR_FILES_TO_BACKUP=("$PROWLARR_PATH")
 PROWLARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$PROWLARR_PATH/Backups")
 
+# Variables for qBittorrent backup & restore
+#
+QBITTORRENT_PATH="$CONFIG_LOCATION/qbittorrent"
+QBITTORRENT_BACKUP_PATH="$BACKUP_LOCATION/docker/qbittorrent"
+QBITTORRENT_PREFIX="qbittorrent"
+QBITTORRENT_FILES_TO_BACKUP=("$QBITTORRENT_PATH")
+QBITTORRENT_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+
 # Variables for Radarr backup & restore
 #
 RADARR_PATH="$CONFIG_LOCATION/radarr"
@@ -296,6 +304,7 @@ function get_backup_path() {
         "petio") echo "$PETIO_BACKUP_PATH" ;;
         "plex") echo "$PLEX_BACKUP_PATH" ;;
         "prowlarr") echo "$PROWLARR_BACKUP_PATH" ;;
+        "qbittorrent") echo "$QBITTORRENT_BACKUP_PATH" ;;
         "radarr") echo "$RADARR_BACKUP_PATH" ;;
         "radarr3D") echo "$RADARR3D_BACKUP_PATH" ;;
         "readarr") echo "$READARR_BACKUP_PATH" ;;
@@ -334,6 +343,7 @@ function get_app_prefix() {
         "petio") echo "$PETIO_PREFIX" ;;
         "plex") echo "$PLEX_PREFIX" ;;
         "prowlarr") echo "$PROWLARR_PREFIX" ;;
+        "qbittorrent") echo "$QBITTORRENT_PREFIX" ;;
         "radarr") echo "$RADARR_PREFIX" ;;
         "radarr3D") echo "$RADARR3D_PREFIX" ;;
         "readarr") echo "$READARR_PREFIX" ;;
@@ -372,6 +382,7 @@ function get_files_to_backup() {
         "petio") create_files_to_backup "${PETIO_FILES_TO_BACKUP[@]}" ;;
         "plex") create_files_to_backup "${PLEX_FILES_TO_BACKUP[@]}" ;;
         "prowlarr") create_files_to_backup "${PROWLARR_FILES_TO_BACKUP[@]}" ;;
+        "qbittorrent") create_files_to_backup "${QBITTORRENT_FILES_TO_BACKUP[@]}" ;;
         "radarr") create_files_to_backup "${RADARR_FILES_TO_BACKUP[@]}" ;;
         "radarr3D") create_files_to_backup "${RADARR3D_FILES_TO_BACKUP[@]}" ;;
         "readarr") create_files_to_backup "${READARR_FILES_TO_BACKUP[@]}" ;;
@@ -410,6 +421,7 @@ function get_files_to_exclude_from_backup() {
         "petio") create_files_to_exclude_from_backup "${PETIO_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "plex") create_files_to_exclude_from_backup "${PLEX_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "prowlarr") create_files_to_exclude_from_backup "${PROWLARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "qbittorrent") create_files_to_exclude_from_backup "${QBITTORRENT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "radarr") create_files_to_exclude_from_backup "${RADARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "radarr3D") create_files_to_exclude_from_backup "${RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "readarr") create_files_to_exclude_from_backup "${READARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
