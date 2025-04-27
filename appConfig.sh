@@ -46,14 +46,14 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "hydra2" "jackett" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_<user>" "homes_root")
+APPS=("bazarr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
 #
 CONFIG_LOCATION='/share/shares/docker'
 BACKUP_LOCATION="/share/shares/Backup/QNAP/share"
-SCRIPTS_LOCATION='/share/shares/homes/<user>/scripts'
+SCRIPTS_LOCATION='/share/shares/homes/manfred/scripts'
 HOMES_LOCATION='/share/shares/homes'
 HOMES_ROOT_LOCATION='/root'
 TMP_FILE_LIST='/tmp/filesToBackup.lst'
@@ -92,6 +92,14 @@ HOMEASSISTANT_PREFIX="homeassistant"
 HOMEASSISTANT_FILES_TO_BACKUP=("$HOMEASSISTANT_PATH")
 HOMEASSISTANT_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
+# Variables for Huntarr backup & restore
+#
+HUNTARR_PATH="$CONFIG_LOCATION/huntarr"
+HUNTARR_BACKUP_PATH="$BACKUP_LOCATION/docker/huntarr"
+HUNTARR_PREFIX="huntarr"
+HUNTARR_FILES_TO_BACKUP=("$HUNTARR_PATH")
+HUNTARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$HUNTARR_PATH/logs")
+
 # Variables for Hydra2 backup & restore
 #
 HYDRA2_PATH="$CONFIG_LOCATION/hydra2"
@@ -107,6 +115,14 @@ JACKETT_BACKUP_PATH="$BACKUP_LOCATION/docker/jackett"
 JACKETT_PREFIX="jackett"
 JACKETT_FILES_TO_BACKUP=("$JACKETT_PATH")
 JACKETT_FILES_TO_EXCLUDE_FROM_BACKUP=("$JACKETT_PATH/downloads")
+
+# Variables for Jellyseerr backup & restore
+#
+JELLYSEERR_PATH="$CONFIG_LOCATION/jellyseerr"
+JELLYSEERR_BACKUP_PATH="$BACKUP_LOCATION/docker/jellyseerr"
+JELLYSEERR_PREFIX="jellyseerr"
+JELLYSEERR_FILES_TO_BACKUP=("$JELLYSEERR_PATH")
+JELLYSEERR_FILES_TO_EXCLUDE_FROM_BACKUP=("$JELLYSEERR_PATH/logs")
 
 # Variables for Kavita backup & restore
 #
@@ -270,11 +286,11 @@ WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$WHISPARR_PATH/Backups" "$WHISPARR_PATH/
 
 # Variables for HOME_USER backup & restore
 #
-HOMES_PATH_<USERNAME>="$HOMES_LOCATION/<user>"
-HOMES_<USERNAME>_BACKUP_PATH="$BACKUP_LOCATION/homes/<user>"
-HOMES_<USERNAME>_PREFIX="<user>"
-HOMES_<USERNAME>_FILES_TO_BACKUP=("$HOMES_PATH_<USERNAME>")
-HOMES_<USERNAME>_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+HOMES_PATH_MANFRED="$HOMES_LOCATION/manfred"
+HOMES_MANFRED_BACKUP_PATH="$BACKUP_LOCATION/homes/manfred"
+HOMES_MANFRED_PREFIX="manfred"
+HOMES_MANFRED_FILES_TO_BACKUP=("$HOMES_PATH_MANFRED")
+HOMES_MANFRED_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
 # Variables for HOMES_ROOT backup & restore
 #
@@ -295,7 +311,9 @@ function get_backup_path() {
         "gluetun") echo "$GLUETUN_BACKUP_PATH" ;;
         "homeassistant") echo "$HOMEASSISTANT_BACKUP_PATH" ;;
         "hydra2") echo "$HYDRA2_BACKUP_PATH" ;;
+        "huntarr") echo "$HUNTARR_BACKUP_PATH" ;;
         "jackett") echo "$JACKETT_BACKUP_PATH" ;;
+        "jellyseerr") echo "$JELLYSEERR_BACKUP_PATH" ;;
         "kavita") echo "$KAVITA_BACKUP_PATH" ;;
         "lidarr") echo "$LIDARR_BACKUP_PATH" ;;
         "lms") echo "$LMS_BACKUP_PATH" ;;
@@ -316,7 +334,7 @@ function get_backup_path() {
         "tautulli") echo "$TAUTULLI_BACKUP_PATH" ;;
         "uptime_kuma") echo "$UPTIME_KUMA_BACKUP_PATH" ;;
         "whisparr") echo "$WHISPARR_BACKUP_PATH" ;;
-        "homes_<user>") echo "$HOMES_<USERNAME>_BACKUP_PATH" ;;
+        "homes_manfred") echo "$HOMES_MANFRED_BACKUP_PATH" ;;
         "homes_root") echo "$HOMES_ROOT_BACKUP_PATH" ;;
         *) exit 1 ;;
     esac
@@ -334,7 +352,9 @@ function get_app_prefix() {
         "gluetun") echo "$GLUETUN_PREFIX" ;;
         "homeassistant") echo "$HOMEASSISTANT_PREFIX" ;;
         "hydra2") echo "$HYDRA2_PREFIX" ;;
+        "huntarr") echo "$HUNTARR_PREFIX" ;;
         "jackett") echo "$JACKETT_PREFIX" ;;
+        "jellyseerr") echo "$JELLYSEERR_PREFIX" ;;
         "kavita") echo "$KAVITA_PREFIX" ;;
         "lidarr") echo "$LIDARR_PREFIX" ;;
         "lms") echo "$LMS_PREFIX" ;;
@@ -355,7 +375,7 @@ function get_app_prefix() {
         "tautulli") echo "$TAUTULLI_PREFIX" ;;
         "uptime_kuma") echo "$UPTIME_KUMA_PREFIX" ;;
         "whisparr") echo "$WHISPARR_PREFIX" ;;
-        "homes_<user>") echo "$HOMES_<USERNAME>_PREFIX" ;;
+        "homes_manfred") echo "$HOMES_MANFRED_PREFIX" ;;
         "homes_root") echo "$HOMES_ROOT_PREFIX" ;;
         *) exit 1 ;;
     esac
@@ -373,7 +393,9 @@ function get_files_to_backup() {
         "gluetun") create_files_to_backup "${GLUETUN_FILES_TO_BACKUP[@]}" ;;
         "homeassistant") create_files_to_backup "${HOMEASSISTANT_FILES_TO_BACKUP[@]}" ;;
         "hydra2") create_files_to_backup "${HYDRA2_FILES_TO_BACKUP[@]}" ;;
+        "huntarr") create_files_to_backup "${HUNTARR_FILES_TO_BACKUP[@]}" ;;
         "jackett") create_files_to_backup "${JACKETT_FILES_TO_BACKUP[@]}" ;;
+        "jellyseerr") create_files_to_backup "${JELLYSEERR_FILES_TO_BACKUP[@]}" ;;
         "kavita") create_files_to_backup "${KAVITA_FILES_TO_BACKUP[@]}" ;;
         "lidarr") create_files_to_backup "${LIDARR_FILES_TO_BACKUP[@]}" ;;
         "lms") create_files_to_backup "${LMS_FILES_TO_BACKUP[@]}" ;;
@@ -394,7 +416,7 @@ function get_files_to_backup() {
         "tautulli") create_files_to_backup create_files_to_backup "${TAUTULLI_FILES_TO_BACKUP[@]}" ;;
         "uptime_kuma") create_files_to_backup create_files_to_backup "${UPTIME_KUMA_FILES_TO_BACKUP[@]}" ;;
         "whisparr") create_files_to_backup create_files_to_backup "${WHISPARR_FILES_TO_BACKUP[@]}" ;;
-        "homes_<user>") create_files_to_backup "${HOMES_<USERNAME>_FILES_TO_BACKUP[@]}" ;;
+        "homes_manfred") create_files_to_backup "${HOMES_MANFRED_FILES_TO_BACKUP[@]}" ;;
         "homes_root") create_files_to_backup "${HOMES_ROOT_FILES_TO_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
@@ -412,7 +434,9 @@ function get_files_to_exclude_from_backup() {
         "gluetun") create_files_to_exclude_from_backup "${GLUETUN_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homeassistant") create_files_to_exclude_from_backup "${HOMEASSISTANT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "hydra2") create_files_to_exclude_from_backup "${HYDRA2_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "huntarr") create_files_to_exclude_from_backup "${HUNTARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "jackett") create_files_to_exclude_from_backup "${JACKETT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "jellyseerr") create_files_to_exclude_from_backup "${JELLYSEERR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "kavita") create_files_to_exclude_from_backup "${KAVITA_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "lidarr") create_files_to_exclude_from_backup "${LIDARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "lms") create_files_to_exclude_from_backup "${LMS_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
@@ -433,7 +457,7 @@ function get_files_to_exclude_from_backup() {
         "tautulli") create_files_to_exclude_from_backup "${TAUTULLI_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "uptime_kuma") create_files_to_exclude_from_backup "${UPTIME_KUMA_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "whisparr") create_files_to_exclude_from_backup "${WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
-        "homes_<user>") create_files_to_exclude_from_backup "${HOMES_<USERNAME>_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "homes_manfred") create_files_to_exclude_from_backup "${HOMES_MANFRED_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_root") create_files_to_exclude_from_backup "${HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac

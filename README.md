@@ -7,8 +7,10 @@ The following applications that I have running in docker are included:
 * deluge
 * gluetun
 * homeassistant
+* huntarr
 * hydra2
 * jackett
+* jellyseerr
 * kavita
 * lidarr
 * lms (Lyrion Media Server)
