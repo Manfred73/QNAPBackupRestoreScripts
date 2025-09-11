@@ -4,6 +4,7 @@ This repository contains some generic scripts which can be used for backing up a
 The following applications that I have running in docker are included:
 
 * bazarr
+* cleanuparr
 * deluge
 * gluetun
 * homeassistant

@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
+APPS=("bazarr" "cleanuparr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -67,6 +67,14 @@ BAZARR_BACKUP_PATH="$BACKUP_LOCATION/docker/bazarr"
 BAZARR_PREFIX="bazarr"
 BAZARR_FILES_TO_BACKUP=("$BAZARR_PATH")
 BAZARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$BAZARR_PATH/backup")
+
+# Variables for Cleanuparr backup & restore
+#
+CLEANUPARR_PATH="$CONFIG_LOCATION/cleanuparr"
+CLEANUPARR_BACKUP_PATH="$BACKUP_LOCATION/docker/cleanuparr"
+CLEANUPARR_PREFIX="cleanuparr"
+CLEANUPARR_FILES_TO_BACKUP=("$CLEANUPARR_PATH")
+CLEANUPARR_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
 # Variables for Deluge backup & restore
 #
@@ -307,6 +315,7 @@ HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 function get_backup_path() {
     case $1 in
         "bazarr") echo "$BAZARR_BACKUP_PATH" ;;
+        "cleanuparr") echo "$CLEANUPARR_BACKUP_PATH" ;;
         "deluge") echo "$DELUGE_BACKUP_PATH" ;;
         "gluetun") echo "$GLUETUN_BACKUP_PATH" ;;
         "homeassistant") echo "$HOMEASSISTANT_BACKUP_PATH" ;;
@@ -348,6 +357,7 @@ function get_backup_path() {
 function get_app_prefix() {
     case $1 in
         "bazarr") echo "$BAZARR_PREFIX" ;;
+        "cleanuparr") echo "$CLEANUPARR_PREFIX" ;;
         "deluge") echo "$DELUGE_PREFIX" ;;
         "gluetun") echo "$GLUETUN_PREFIX" ;;
         "homeassistant") echo "$HOMEASSISTANT_PREFIX" ;;
@@ -389,6 +399,7 @@ function get_app_prefix() {
 function get_files_to_backup() {
     case $1 in
         "bazarr") create_files_to_backup "${BAZARR_FILES_TO_BACKUP[@]}" ;;
+        "cleanuparr") create_files_to_backup "${CLEANUPARR_FILES_TO_BACKUP[@]}" ;;
         "deluge") create_files_to_backup "${DELUGE_FILES_TO_BACKUP[@]}" ;;
         "gluetun") create_files_to_backup "${GLUETUN_FILES_TO_BACKUP[@]}" ;;
         "homeassistant") create_files_to_backup "${HOMEASSISTANT_FILES_TO_BACKUP[@]}" ;;
@@ -430,6 +441,7 @@ function get_files_to_backup() {
 function get_files_to_exclude_from_backup() {
     case $1 in
         "bazarr") create_files_to_exclude_from_backup "${BAZARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "cleanuparr") create_files_to_exclude_from_backup "${CLEANUPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "deluge") create_files_to_exclude_from_backup "${DELUGE_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "gluetun") create_files_to_exclude_from_backup "${GLUETUN_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homeassistant") create_files_to_exclude_from_backup "${HOMEASSISTANT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
