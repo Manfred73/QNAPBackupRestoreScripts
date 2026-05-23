@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "cleanuparr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
+APPS=("bazarr" "cleanuparr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "seerr" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -236,6 +236,15 @@ SABNZBD_PREFIX="sabnzbd"
 SABNZBD_FILES_TO_BACKUP=("$SABNZBD_PATH")
 SABNZBD_FILES_TO_EXCLUDE_FROM_BACKUP=("$SABNZBD_PATH/Downloads")
 
+
+# Variables for Seerr backup & restore
+#
+SEERR_PATH="$CONFIG_LOCATION/seerr"
+SEERR_BACKUP_PATH="$BACKUP_LOCATION/docker/seerr"
+SEERR_PREFIX="seerr"
+SEERR_FILES_TO_BACKUP=("$SEERR_PATH")
+SEERR_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+
 # Variables for Sonarr backup & restore
 #
 SONARR_PATH="$CONFIG_LOCATION/sonarr"
@@ -336,6 +345,7 @@ function get_backup_path() {
         "radarr3D") echo "$RADARR3D_BACKUP_PATH" ;;
         "readarr") echo "$READARR_BACKUP_PATH" ;;
         "sabnzbd") echo "$SABNZBD_BACKUP_PATH" ;;
+        "seerr") echo "$SEERR_BACKUP_PATH" ;;
         "sonarr") echo "$SONARR_BACKUP_PATH" ;;
         "spotweb") echo "$SPOTWEB_BACKUP_PATH" ;;
         "spotwebdb") echo "$SPOTWEBDB_BACKUP_PATH" ;;
@@ -378,6 +388,7 @@ function get_app_prefix() {
         "radarr3D") echo "$RADARR3D_PREFIX" ;;
         "readarr") echo "$READARR_PREFIX" ;;
         "sabnzbd") echo "$SABNZBD_PREFIX" ;;
+        "seerr") echo "$SEERR_PREFIX" ;;
         "sonarr") echo "$SONARR_PREFIX" ;;
         "spotweb") echo "$SPOTWEB_PREFIX" ;;
         "spotwebdb") echo "$SPOTWEBDB_PREFIX" ;;
@@ -420,6 +431,7 @@ function get_files_to_backup() {
         "radarr3D") create_files_to_backup "${RADARR3D_FILES_TO_BACKUP[@]}" ;;
         "readarr") create_files_to_backup "${READARR_FILES_TO_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_backup "${SABNZBD_FILES_TO_BACKUP[@]}" ;;
+        "seerr") create_files_to_backup "${SEERR_FILES_TO_BACKUP[@]}" ;;
         "sonarr") create_files_to_backup "${SONARR_FILES_TO_BACKUP[@]}" ;;
         "spotweb") create_files_to_backup "${SPOTWEB_FILES_TO_BACKUP[@]}" ;;
         "spotwebdb") create_files_to_backup "${SPOTWEBDB_FILES_TO_BACKUP[@]}" ;;
@@ -462,6 +474,7 @@ function get_files_to_exclude_from_backup() {
         "radarr3D") create_files_to_exclude_from_backup "${RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "readarr") create_files_to_exclude_from_backup "${READARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_exclude_from_backup "${SABNZBD_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "seerr") create_files_to_exclude_from_backup "${SEERR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "sonarr") create_files_to_exclude_from_backup "${SONARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "spotweb") create_files_to_exclude_from_backup "${SPOTWEB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "spotwebdb") create_files_to_exclude_from_backup "${SPOTWEBDB_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;

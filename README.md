@@ -50,7 +50,7 @@ A backup for a specific application can either be done by running the `backup.sh
 
 runs a backup for the radarr application every sunday at 08:05 and writes the result to the specified log file.
 
-For more information on how to do add entries to the contrab on QNAP, see: https://wiki.qnap.com/wiki/Add_items_to_crontab.
+For more information on how to do add entries to the contrab on QNAP, see: https://www.qnap.com/nl-nl/how-to/faq/article/how-to-add-jobs-to-crontab-to-schedule-a-job.
 
 In general, this script doesn't have to be changed.
 
