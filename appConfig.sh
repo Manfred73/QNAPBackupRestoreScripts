@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "cleanuparr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "seerr" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
+APPS=("bazarr" "cleanuparr" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "seerr" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root" "compose")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -316,6 +316,14 @@ HOMES_ROOT_PREFIX="root"
 HOMES_ROOT_FILES_TO_BACKUP=("$HOMES_ROOT_LOCATION")
 HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP=("")
 
+# Variables for compose files backup & restore
+#
+COMPOSE_PATH="$CONFIG_LOCATION/compose"
+COMPOSE_BACKUP_PATH="$BACKUP_LOCATION/docker/compose"
+COMPOSE_PREFIX="compose"
+COMPOSE_FILES_TO_BACKUP=("$COMPOSE_PATH")
+COMPOSE_FILES_TO_EXCLUDE_FROM_BACKUP=("")
+
 ##########################################################################################################################################################
 # Function to return the application backup path based on the provided appication configuration parameter.
 #
@@ -355,6 +363,7 @@ function get_backup_path() {
         "whisparr") echo "$WHISPARR_BACKUP_PATH" ;;
         "homes_manfred") echo "$HOMES_MANFRED_BACKUP_PATH" ;;
         "homes_root") echo "$HOMES_ROOT_BACKUP_PATH" ;;
+        "compose") echo "$COMPOSE_BACKUP_PATH" ;;
         *) exit 1 ;;
     esac
 }
@@ -398,6 +407,7 @@ function get_app_prefix() {
         "whisparr") echo "$WHISPARR_PREFIX" ;;
         "homes_manfred") echo "$HOMES_MANFRED_PREFIX" ;;
         "homes_root") echo "$HOMES_ROOT_PREFIX" ;;
+        "compose") echo "$COMPOSE_PREFIX" ;;
         *) exit 1 ;;
     esac
 }
@@ -441,6 +451,7 @@ function get_files_to_backup() {
         "whisparr") create_files_to_backup create_files_to_backup "${WHISPARR_FILES_TO_BACKUP[@]}" ;;
         "homes_manfred") create_files_to_backup "${HOMES_MANFRED_FILES_TO_BACKUP[@]}" ;;
         "homes_root") create_files_to_backup "${HOMES_ROOT_FILES_TO_BACKUP[@]}" ;;
+        "compose") create_files_to_backup "${COMPOSE_FILES_TO_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
 }
@@ -484,6 +495,7 @@ function get_files_to_exclude_from_backup() {
         "whisparr") create_files_to_exclude_from_backup "${WHISPARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_manfred") create_files_to_exclude_from_backup "${HOMES_MANFRED_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "homes_root") create_files_to_exclude_from_backup "${HOMES_ROOT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "compose") create_files_to_exclude_from_backup "${COMPOSE_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         *) exit 1 ;;
     esac
 }
