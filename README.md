@@ -46,7 +46,7 @@ This is the backup script. It uses the `appConfig.sh` and `functions.sh` as inpu
 The script takes one mandatory application id as input and creates a backup of all the files/directories specified in the `appConfig.sh` for the specific application id. The result is stored as a `tar.gz` file with a filename consisting of the application id and a timestamp, e.g. `radarr-20200925212759.tar.gz.` All files within the `tar.gz` file are stored with absolute paths, so the restore script can extract them in the same exact location.
 A backup for a specific application can either be done by running the `backup.sh` script manually from an ssh session or it can be scheduled as a crontab entry, for example:
 
-`5 8 * * 7 /share/homes/someuser/scripts/backup_and_restore/backup.sh radarr >>/share/homes/someuser/scripts/backup_radarr.log 2>&1`
+`5 8 * * 7 /share/homes/someuser/scripts/backup_and_restore/backup.sh radarr >>/share/homes/someuser/scripts/backup_and_restore/logs/backup_radarr.log 2>&1`
 
 runs a backup for the radarr application every sunday at 08:05 and writes the result to the specified log file.
 
