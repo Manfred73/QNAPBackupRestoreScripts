@@ -46,7 +46,7 @@
 #   and get_files_to_exclude_from_backup below (or remove the ones that you don't need from these functions)
 #
 # Array of applications to backup.
-APPS=("bazarr" "caddy" "cleanuparr" "compose" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3D" "readarr" "sabnzbd" "seerr" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
+APPS=("bazarr" "caddy" "cleanuparr" "compose" "deluge" "gluetun" "homeassistant" "huntarr" "hydra2" "jackett" "jellyseerr" "kavita" "lidarr" "lms" "organizr" "overseerr" "petio" "plex" "prowlarr" "qbittorrent" "radarr" "radarr3d" "readarr" "sabnzbd" "seerr" "sonarr" "spotweb" "spotwebdb" "tautulli" "tdarr" "whisparr" "uptime_kuma" "homes_manfred" "homes_root")
 
 # General location variables for backup & restore
 # Change these according to your preferences and available locations/directories
@@ -220,12 +220,12 @@ RADARR_PREFIX="radarr"
 RADARR_FILES_TO_BACKUP=("$RADARR_PATH")
 RADARR_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR_PATH/Backups" "$RADARR_PATH/MediaCover")
 
-# Variables for Radarr3D backup & restore
+# Variables for Radarr3d backup & restore
 #
-RADARR3D_PATH="$CONFIG_LOCATION/radarr3D"
-RADARR3D_BACKUP_PATH="$BACKUP_LOCATION/docker/radarr3D"
-RADARR3D_PREFIX="radarr3D"
-RADARR3D_FILES_TO_BACKUP=("$RADARR3D_PATH")
+RADARR3D_PATH="$CONFIG_LOCATION/radarr3d"
+RADARR3D_BACKUP_PATH="$BACKUP_LOCATION/docker/radarr3d"
+RADARR3D_PREFIX="radarr3d"
+RADARR3D_FILES_TO_BACKUP=("$RADARR3d_PATH")
 RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP=("$RADARR3D_PATH/Backups" "$RADARR3D_PATH/MediaCover")
 
 # Variables for Readarr backup & restore
@@ -359,7 +359,7 @@ function get_backup_path() {
         "prowlarr") echo "$PROWLARR_BACKUP_PATH" ;;
         "qbittorrent") echo "$QBITTORRENT_BACKUP_PATH" ;;
         "radarr") echo "$RADARR_BACKUP_PATH" ;;
-        "radarr3D") echo "$RADARR3D_BACKUP_PATH" ;;
+        "radarr3d") echo "$RADARR3D_BACKUP_PATH" ;;
         "readarr") echo "$READARR_BACKUP_PATH" ;;
         "sabnzbd") echo "$SABNZBD_BACKUP_PATH" ;;
         "seerr") echo "$SEERR_BACKUP_PATH" ;;
@@ -404,7 +404,7 @@ function get_app_prefix() {
         "prowlarr") echo "$PROWLARR_PREFIX" ;;
         "qbittorrent") echo "$QBITTORRENT_PREFIX" ;;
         "radarr") echo "$RADARR_PREFIX" ;;
-        "radarr3D") echo "$RADARR3D_PREFIX" ;;
+        "radarr3d") echo "$RADARR3D_PREFIX" ;;
         "readarr") echo "$READARR_PREFIX" ;;
         "sabnzbd") echo "$SABNZBD_PREFIX" ;;
         "seerr") echo "$SEERR_PREFIX" ;;
@@ -449,7 +449,7 @@ function get_files_to_backup() {
         "prowlarr") create_files_to_backup "${PROWLARR_FILES_TO_BACKUP[@]}" ;;
         "qbittorrent") create_files_to_backup "${QBITTORRENT_FILES_TO_BACKUP[@]}" ;;
         "radarr") create_files_to_backup "${RADARR_FILES_TO_BACKUP[@]}" ;;
-        "radarr3D") create_files_to_backup "${RADARR3D_FILES_TO_BACKUP[@]}" ;;
+        "radarr3d") create_files_to_backup "${RADARR3D_FILES_TO_BACKUP[@]}" ;;
         "readarr") create_files_to_backup "${READARR_FILES_TO_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_backup "${SABNZBD_FILES_TO_BACKUP[@]}" ;;
         "seerr") create_files_to_backup "${SEERR_FILES_TO_BACKUP[@]}" ;;
@@ -494,7 +494,7 @@ function get_files_to_exclude_from_backup() {
         "prowlarr") create_files_to_exclude_from_backup "${PROWLARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "qbittorrent") create_files_to_exclude_from_backup "${QBITTORRENT_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "radarr") create_files_to_exclude_from_backup "${RADARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
-        "radarr3D") create_files_to_exclude_from_backup "${RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
+        "radarr3d") create_files_to_exclude_from_backup "${RADARR3D_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "readarr") create_files_to_exclude_from_backup "${READARR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "sabnzbd") create_files_to_exclude_from_backup "${SABNZBD_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
         "seerr") create_files_to_exclude_from_backup "${SEERR_FILES_TO_EXCLUDE_FROM_BACKUP[@]}" ;;
